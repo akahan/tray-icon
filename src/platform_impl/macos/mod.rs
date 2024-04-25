@@ -56,6 +56,15 @@ impl TrayIcon {
             ns_status_item
         };
 
+        if attrs.hide_from_dock {
+            use cocoa::appkit::{NSApp, NSApplication, NSApplicationActivationPolicy};
+            unsafe {
+                NSApp().setActivationPolicy_(
+                    NSApplicationActivationPolicy::NSApplicationActivationPolicyAccessory,
+                )
+            };
+        }
+
         set_icon_for_ns_status_item_button(
             ns_status_item,
             attrs.icon.clone(),

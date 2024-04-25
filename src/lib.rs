@@ -161,6 +161,9 @@ pub struct TrayIconAttributes {
     /// on the user's panel.  This may not be shown in all visualizations.
     /// - **Windows:** Unsupported.
     pub title: Option<String>,
+
+    /// Hide tray app from Dock
+    pub hide_from_dock: bool,
 }
 
 impl Default for TrayIconAttributes {
@@ -173,6 +176,7 @@ impl Default for TrayIconAttributes {
             icon_is_template: false,
             menu_on_left_click: true,
             title: None,
+            hide_from_dock: false,
         }
     }
 }
@@ -265,6 +269,12 @@ impl TrayIconBuilder {
     /// Whether to show the tray menu on left click or not, default is `true`. **macOS only**.
     pub fn with_menu_on_left_click(mut self, enable: bool) -> Self {
         self.attrs.menu_on_left_click = enable;
+        self
+    }
+
+    /// Hide from Dock. **macOS only**.
+    pub fn with_dock_hidden(mut self, is_hidden: bool) -> Self {
+        self.attrs.hide_from_dock = is_hidden;
         self
     }
 
